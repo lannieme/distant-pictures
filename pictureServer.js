@@ -83,11 +83,21 @@ const parser = new Readline({
   delimiter: '\r\n'
 });
 
-// Read data that is available on the serial port and send it to the websocket
+// Read the data and trigger picture taking through button
 serial.pipe(parser);
 parser.on('data', function(data) {
-  console.log('Data:', data);
-  io.emit('server-msg', data);
+  console.log('Pressed button');
+  if (data == 'dark'){
+    var imageName = new Date().toString().replace(/[&\/\\#,+()$~%.'":*?<>{}\s-]/g, '');
+
+    console.log('making a making a picture at'+ imageName); // Second, the name is logged to the console.
+
+    //Third, the picture is  taken and saved to the `public/`` folder
+    NodeWebcam.capture('public/'+imageName, opts, function( err, data ) {
+      io.emit('newPicture',(imageName+'.jpg')); ///Lastly, the new name is send to the client web browser.s
+  });
+  }
+  
 });
 //----------------------------------------------------------------------------//
 
