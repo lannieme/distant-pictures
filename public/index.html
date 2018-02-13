@@ -2,16 +2,38 @@
 <html>
     <head>
         <meta charset="utf8"/>
-        <title>Interaction Engine - Hello You!</title>
+        <title>Interaction Engine - Versatile Camera App!</title>
         <script src="/socket.io/socket.io.js"></script>
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <body bgcolor="#000">
-        <button onclick="ledON()">LED ON</button>
-        <button onclick="ledOFF()">LED OFF</button>
-        <button onclick="takePicture()">Take a picture</button>
-      </br>
-        <img src="" id= "pictureContainer" alt="WebCam image  made by the webserver">
+         <div id="buttons">
+                <button class="btn" onclick="ledON()">LED ON</button>
+                <button class="btn" onclick="ledOFF()">LED OFF</button>
+                <button class="btn" onclick="takePicture()">Take a picture</button>
+                <button class="btn" onclick="cloudinary()"> Add auto padding</button>
+                <button class="btn" onclick="overlay()"> Add overlay</button>
+            </div>
+        <div id="main">
+            <h1>Fun Camera</h1>
+            <h3>How to use: </h3>
+            <ul>
+                <li><b>Take a picture:</b> Use either the button on Arduino or on the website to take picture</li>
+                <li><b>Add auto padding:</b> It will upload the photo just taken to Cloudinary, and generate automatic padding based on the main color theme of the picture.</li>
+                <li><b>Add overlay:</b> Upload photo to Cloudinary and automatically apply an overlay of lighting with opacity 50% to the original photo. </li>
+            </ul>
+
+          </br>
+            <div id="origin">
+                <p>Original Photo</p>
+                <img src="" class="pic" id= "pictureContainer" alt="WebCam image  made by the webserver">
+            </div>
+
+            <div id="new">
+                <p>Processed Photo</p>
+                <img src="" class="pic" id= "newContainer" alt="WebCam image  made by the cloudinary">
+            </div>
+        </div>
         <script src="client.js"></script>
     </body>
 </html>

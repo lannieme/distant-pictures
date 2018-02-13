@@ -29,10 +29,22 @@ function takePicture(){
   socket.emit('takePicture');
 }
 
+function cloudinary(){
+  socket.emit('cloudinary');
+}
+
+function overlay(){
+  socket.emit('overlay');
+}
 //-- Addition: This function receives the new image name and applies it to html element.
 
 socket.on('newPicture', function(msg) {
   document.getElementById('pictureContainer').src=msg;
+});
+
+socket.on('updatedImage', function(msg) {
+  console.log("reached here");
+  document.getElementById('newContainer').src=msg;
 });
 // read the data from the message that the server sent and change the
 // background of the webpage based on the data in the message
@@ -42,7 +54,7 @@ socket.on('server-msg', function(msg) {
   switch (msg) {
     case "light":
       document.body.style.backgroundColor = "white";
-      console.log("white")
+     console.log("white")
       break;
     case "dark":
       document.body.style.backgroundColor = "black";
